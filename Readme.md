@@ -68,6 +68,7 @@ In order to run this project on your machine, external libraries are to be insta
 #### Quality Assement Page for selected Paper
 ![4.png](./images/4.png)
 ![5.png](./images/5.png)
+![6.png](./images/6.png)
 
 ## Conclusion and Scope for Improvement
 The project is simple ligh weight and good for basic SLR tool processing. 
