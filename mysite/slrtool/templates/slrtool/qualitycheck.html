@@ -1,0 +1,72 @@
+  {% load static %}
+{% block content %}
+<html>
+<head>
+  <title>Main Page</title>
+  <!--<style>
+  table {
+    width:100%;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 15px;
+    text-align: left;
+  }
+</style>-->
+  <link rel="stylesheet" type="text/css" href="{% static 'slrtool/main.css' %}">
+</head>
+<body>
+  <h2 id="heading">Systematic Literature Review Tool</h2>
+  <br/>
+  <table>
+    <tr>
+      <th>S.No.</th>
+      <th>Paper Type</th>
+      <th>Author</th>
+      <th>Book Title</th>
+      <th>title</th>
+      <th>year</th>
+      <th>doi</th>
+      <th>pages</th>
+      <th>publisher</th>
+      <th>Language </th>
+      <th>URL</th>
+      <th>Quality Assessment Form</th>
+    </tr>
+    {% if not papers%}
+    <tr><td colspan="12">No results to show for selected Inclusion/Exclusion Criteria!!!</td><tr>
+    {%endif%}
+
+    {% for p in papers %}
+    <tr>
+      <th>{{forloop.counter}}</th>
+      <td>{{ p.paper_type }}</td>
+      <td>{{ p.author }}</td>
+      <td>{{ p.booktitle }}</td>
+      <td>{{ p.title }}</td>
+      <td>{{ p.year }}</td>
+      <td>{{ p.doi }}</td>
+      <td>{{ p.pages }}</td>
+      <td>{{ p.publisher }}</td>
+      <td>{{ p.language }}</td>
+      <td>{% if p.pdf_url is not None %}
+          <a href={{p.pdf_url}}  target="_blank">{{p.pdf_url}}</a>
+        {%else%}
+          {{p.pdf_url}}
+        {%endif%}
+      </td>
+      <td>
+        <form method="get" action="{% url 'quality_assessment' %}">
+          <input type="hidden" value={{p.id}} name="paper_id" id="id_paper_id" />
+          <button type="submit">Quality Assessment</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
+{% endblock %}
